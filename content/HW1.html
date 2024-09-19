@@ -145,6 +145,13 @@ img.add_border {
 <p>Homework 1 (10%):</p>
 <p style="padding-left: 30px;">利用 Solvespace 與 NX2312 建立 <a href="https://mde.tw/cad2024/content/Parts.html">Parts</a> 頁面中的零件</p>
 <p style="padding-left: 30px;">其他<a href="http://229.cycu.org/part_modeling_projects.pdf">零件模擬練習</a></p>
+<p style="padding-left: 30px;"><img alt="" height="101" src="./../images/chrome_bef8dKwRiY.png" width="400"/></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from cmsimde import flaskapp
+from gevent.pywsgi import WSGIServer
+
+#flaskapp.app.run(host="0.0.0.0", debug=True)
+http_server = WSGIServer(('0.0.0.0', 8080), flaskapp.app)
+http_server.serve_forever()</pre>
 <hr/>
 <p>利用 Solvespace 繪製列表中零件的操作過程與說明影片如下:</p>
 <p style="padding-left: 30px;">影片標題: 國立虎尾科技大學機械設計工程系電腦輔助設計與實習- 作業一之一</p>
@@ -161,7 +168,8 @@ img.add_border {
 <p>HW1 執行心得:</p>
 <p style="padding-left: 30px;">......</p>
 <p>HW1 自評分數:</p>
-<p style="padding-left: 30px;">完成上述流程後, 請將 HW1 自評分數輸入 cad2024 自評表單中.</p><br />Attendance << <a href='Attendance.html'>Previous</a> <a href='HW1_Exam.html'>Next</a> >> HW1_Exam</div>
+<p style="padding-left: 30px;">完成上述流程後, 請將 HW1 自評分數輸入 cad2024 自評表單中.</p>
+<br />Attendance << <a href='Attendance.html'>Previous</a> <a href='HW1_Exam.html'>Next</a> >> HW1_Exam</div>
         
     <!-- footer -->
       <div class="container">
