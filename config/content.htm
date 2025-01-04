@@ -1058,35 +1058,496 @@ var viewer3d;
 <p><em><span><img alt="" height="225" src="/images/螢幕擷取畫面 2024-11-13 165824.png" width="400"/></span></em></p>
 <p><em><span>練習1-8影片:</span></em></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/rBnx7DTHDhQ?si=gIny1z5b5tSqOrxw" title="YouTube video player" width="560"></iframe></p>
-<h2>EX9</h2>
+<script src="/static/jsc3d.js" type="text/javascript"></script>
+<p><canvas height="600" id="cv" style="border: 1px solid;" width="800"></canvas></p>
+<div style="width: 800px; height: 70px; border: 1px solid;">Model Color:<input id="mdlClr" onchange="changeOption('ModelColor',this.value)" style="margin-right: 50px;" type="color" value="#00ff40"/> Back Color1:<input id="bckClr1" onchange="changeOption('BackgroundColor1',this.value)" style="margin-right: 50px;" type="color"/> Back Color2:<input id="bckClr2" onchange="changeOption('BackgroundColor2',this.value)" type="color"/><br/> Render Mode:<select id="render" onchange="changeOption('RenderMode',this.value)">
+<option>Flat</option>
+<option>Point</option>
+<option>Wireframe</option>
+<option>Smooth</option>
+</select>Definition:<select id="defini" onchange="changeOption('Definition',this.value)">
+<option>Standard</option>
+<option>low</option>
+<option>high</option>
+</select></div>
+<script type="text/javascript">
+var viewer3d;
+    function getOptions(){
+        var mc = document.getElementById("mdlClr").value;
+        var bc1 = document.getElementById("bckClr1").value;
+        var bc2 = document.getElementById("bckClr2").value;
+        var ren = document.getElementById("render").value;
+        var def = document.getElementById("defini").value;
+        return {ModelColor: mc,
+                BackgroundColor1: bc1,
+                BackgroundColor2: bc2,
+                RenderMode: ren,
+                Definition: def};
+    }
+    function readSTLfile(opt){
+        var canvas = document.getElementById('cv');
+        viewer3d = new JSC3D.Viewer(canvas);
+        viewer3d.setParameter('SceneUrl', opt.SceneUrl);
+        viewer3d.setParameter('InitRotationX', 0);
+        viewer3d.setParameter('InitRotationY', 0);
+        viewer3d.setParameter('InitRotationZ', 0);
+        viewer3d.setParameter('ModelColor', opt.ModelColor);
+        viewer3d.setParameter('BackgroundColor1', opt.BackgroundColor1);
+        viewer3d.setParameter('BackgroundColor2', opt.BackgroundColor2);
+        viewer3d.setParameter('RenderMode', opt.RenderMode);
+        viewer3d.setParameter('Definition', opt.Definition);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function changeOption(strOpt,strValue){
+    console.log("change " + strOpt + " to " + strValue);
+        viewer3d.setParameter(strOpt, strValue);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function openByUrl(){
+        var url = document.getElementById("url").value;
+        var opt = getOptions();
+        opt.SceneUrl = document.getElementById("url").value;
+        readSTLfile(opt);
+    }
+    function openByPass(){
+        var pass = document.getElementById("url").value;
+        var opt = getOptions();
+        var fs = document.getElementById("pass").files;
+        var f = fs[0];
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {            
+                opt.SceneUrl = e.target.result;
+                console.log(opt.SceneUrl);
+                readSTLfile(opt);
+            };
+        })(f);
+        reader.readAsDataURL(f);
+    }
+    function openByGet(){
+        var url = "https://s104.cycu.org/~41223221/練習八.stl";
+        var opt = getOptions();
+        opt.SceneUrl = url;
+        readSTLfile(opt);
+    }
+    function GetQueryString(){
+        if( 1 < window.location.search.length )
+        {
+            var query = window.location.search.substring( 1 );
+            var parameters = query.split( '&' );
+            var result = new Object();
+            for( var i = 0; i < parameters.length; i++ )
+            {
+                var element = parameters[ i ].split( '=' );
+                var paramName = decodeURIComponent( element[ 0 ] );
+                var paramValue = decodeURIComponent( element[ 1 ] );
+                result[ paramName ] = decodeURIComponent( paramValue );
+            }
+            return result;
+        }
+        return null;
+    }
+    openByGet();
+</script><h2>EX9</h2>
 <p>檔案(zip):<a href="/downloads/ex9.7z">/downloads/ex9.7z</a></p>
 <p>檔案(stl):<a href="/downloads/練習9.stl">/downloads/練習9.stl</a></p>
 <p>成品圖:</p>
 <p><img caption="false" height="225" src="/images/螢幕擷取畫面 2024-12-13 141841.png" width="400"/></p>
 <p>影片:</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/eqcUrSvBtK8?si=V6gXsEFMYa3GGPKG" title="YouTube video player" width="560"></iframe></p>
-<h2>EX10</h2>
+<p>.</p>
+<script src="/static/jsc3d.js" type="text/javascript"></script>
+<p><canvas height="600" id="cv" style="border: 1px solid;" width="800"></canvas></p>
+<div style="width: 800px; height: 70px; border: 1px solid;">Model Color:<input id="mdlClr" onchange="changeOption('ModelColor',this.value)" style="margin-right: 50px;" type="color" value="#00ff40"/> Back Color1:<input id="bckClr1" onchange="changeOption('BackgroundColor1',this.value)" style="margin-right: 50px;" type="color"/> Back Color2:<input id="bckClr2" onchange="changeOption('BackgroundColor2',this.value)" type="color"/><br/> Render Mode:<select id="render" onchange="changeOption('RenderMode',this.value)">
+<option>Flat</option>
+<option>Point</option>
+<option>Wireframe</option>
+<option>Smooth</option>
+</select>Definition:<select id="defini" onchange="changeOption('Definition',this.value)">
+<option>Standard</option>
+<option>low</option>
+<option>high</option>
+</select></div>
+<script type="text/javascript">
+var viewer3d;
+    function getOptions(){
+        var mc = document.getElementById("mdlClr").value;
+        var bc1 = document.getElementById("bckClr1").value;
+        var bc2 = document.getElementById("bckClr2").value;
+        var ren = document.getElementById("render").value;
+        var def = document.getElementById("defini").value;
+        return {ModelColor: mc,
+                BackgroundColor1: bc1,
+                BackgroundColor2: bc2,
+                RenderMode: ren,
+                Definition: def};
+    }
+    function readSTLfile(opt){
+        var canvas = document.getElementById('cv');
+        viewer3d = new JSC3D.Viewer(canvas);
+        viewer3d.setParameter('SceneUrl', opt.SceneUrl);
+        viewer3d.setParameter('InitRotationX', 0);
+        viewer3d.setParameter('InitRotationY', 0);
+        viewer3d.setParameter('InitRotationZ', 0);
+        viewer3d.setParameter('ModelColor', opt.ModelColor);
+        viewer3d.setParameter('BackgroundColor1', opt.BackgroundColor1);
+        viewer3d.setParameter('BackgroundColor2', opt.BackgroundColor2);
+        viewer3d.setParameter('RenderMode', opt.RenderMode);
+        viewer3d.setParameter('Definition', opt.Definition);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function changeOption(strOpt,strValue){
+    console.log("change " + strOpt + " to " + strValue);
+        viewer3d.setParameter(strOpt, strValue);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function openByUrl(){
+        var url = document.getElementById("url").value;
+        var opt = getOptions();
+        opt.SceneUrl = document.getElementById("url").value;
+        readSTLfile(opt);
+    }
+    function openByPass(){
+        var pass = document.getElementById("url").value;
+        var opt = getOptions();
+        var fs = document.getElementById("pass").files;
+        var f = fs[0];
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {            
+                opt.SceneUrl = e.target.result;
+                console.log(opt.SceneUrl);
+                readSTLfile(opt);
+            };
+        })(f);
+        reader.readAsDataURL(f);
+    }
+    function openByGet(){
+        var url = "https://s104.cycu.org/~41223221/練習9.stl";
+        var opt = getOptions();
+        opt.SceneUrl = url;
+        readSTLfile(opt);
+    }
+    function GetQueryString(){
+        if( 1 < window.location.search.length )
+        {
+            var query = window.location.search.substring( 1 );
+            var parameters = query.split( '&' );
+            var result = new Object();
+            for( var i = 0; i < parameters.length; i++ )
+            {
+                var element = parameters[ i ].split( '=' );
+                var paramName = decodeURIComponent( element[ 0 ] );
+                var paramValue = decodeURIComponent( element[ 1 ] );
+                result[ paramName ] = decodeURIComponent( paramValue );
+            }
+            return result;
+        }
+        return null;
+    }
+    openByGet();
+</script><h2>EX10</h2>
 <p>檔案(zip):<a href="/downloads/ex10.7z">/downloads/ex10.7z</a></p>
 <p>檔案(stl):<a href="/downloads/練習10.stl">/downloads/練習10.stl</a></p>
 <p>成品圖:</p>
 <p><img alt="" height="225" src="/images/螢幕擷取畫面 2024-12-13 141833.png" width="400"/></p>
 <p>影片:</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/Ls9TBe-5JUU?si=z9a5ERNt6_YfP5hw" title="YouTube video player" width="560"></iframe></p>
-<h2>EX11</h2>
+<script src="/static/jsc3d.js" type="text/javascript"></script>
+<p><canvas height="600" id="cv" style="border: 1px solid;" width="800"></canvas></p>
+<div style="width: 800px; height: 70px; border: 1px solid;">Model Color:<input id="mdlClr" onchange="changeOption('ModelColor',this.value)" style="margin-right: 50px;" type="color" value="#00ff40"/> Back Color1:<input id="bckClr1" onchange="changeOption('BackgroundColor1',this.value)" style="margin-right: 50px;" type="color"/> Back Color2:<input id="bckClr2" onchange="changeOption('BackgroundColor2',this.value)" type="color"/><br/> Render Mode:<select id="render" onchange="changeOption('RenderMode',this.value)">
+<option>Flat</option>
+<option>Point</option>
+<option>Wireframe</option>
+<option>Smooth</option>
+</select>Definition:<select id="defini" onchange="changeOption('Definition',this.value)">
+<option>Standard</option>
+<option>low</option>
+<option>high</option>
+</select></div>
+<script type="text/javascript">
+var viewer3d;
+    function getOptions(){
+        var mc = document.getElementById("mdlClr").value;
+        var bc1 = document.getElementById("bckClr1").value;
+        var bc2 = document.getElementById("bckClr2").value;
+        var ren = document.getElementById("render").value;
+        var def = document.getElementById("defini").value;
+        return {ModelColor: mc,
+                BackgroundColor1: bc1,
+                BackgroundColor2: bc2,
+                RenderMode: ren,
+                Definition: def};
+    }
+    function readSTLfile(opt){
+        var canvas = document.getElementById('cv');
+        viewer3d = new JSC3D.Viewer(canvas);
+        viewer3d.setParameter('SceneUrl', opt.SceneUrl);
+        viewer3d.setParameter('InitRotationX', 0);
+        viewer3d.setParameter('InitRotationY', 0);
+        viewer3d.setParameter('InitRotationZ', 0);
+        viewer3d.setParameter('ModelColor', opt.ModelColor);
+        viewer3d.setParameter('BackgroundColor1', opt.BackgroundColor1);
+        viewer3d.setParameter('BackgroundColor2', opt.BackgroundColor2);
+        viewer3d.setParameter('RenderMode', opt.RenderMode);
+        viewer3d.setParameter('Definition', opt.Definition);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function changeOption(strOpt,strValue){
+    console.log("change " + strOpt + " to " + strValue);
+        viewer3d.setParameter(strOpt, strValue);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function openByUrl(){
+        var url = document.getElementById("url").value;
+        var opt = getOptions();
+        opt.SceneUrl = document.getElementById("url").value;
+        readSTLfile(opt);
+    }
+    function openByPass(){
+        var pass = document.getElementById("url").value;
+        var opt = getOptions();
+        var fs = document.getElementById("pass").files;
+        var f = fs[0];
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {            
+                opt.SceneUrl = e.target.result;
+                console.log(opt.SceneUrl);
+                readSTLfile(opt);
+            };
+        })(f);
+        reader.readAsDataURL(f);
+    }
+    function openByGet(){
+        var url = "https://s104.cycu.org/~41223221/練習10.stl";
+        var opt = getOptions();
+        opt.SceneUrl = url;
+        readSTLfile(opt);
+    }
+    function GetQueryString(){
+        if( 1 < window.location.search.length )
+        {
+            var query = window.location.search.substring( 1 );
+            var parameters = query.split( '&' );
+            var result = new Object();
+            for( var i = 0; i < parameters.length; i++ )
+            {
+                var element = parameters[ i ].split( '=' );
+                var paramName = decodeURIComponent( element[ 0 ] );
+                var paramValue = decodeURIComponent( element[ 1 ] );
+                result[ paramName ] = decodeURIComponent( paramValue );
+            }
+            return result;
+        }
+        return null;
+    }
+    openByGet();
+</script><h2>EX11</h2>
 <p>檔案(zip):<a href="/downloads/ex11.7z">/downloads/ex11.7z</a></p>
 <p>檔案(stl):<a href="/downloads/練習11.stl">/downloads/練習11.stl</a></p>
 <p>成品圖:</p>
 <p><img alt="" height="226" src="/images/螢幕擷取畫面 2024-12-13 143532.png" width="400"/></p>
 <p>影片:</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/KMUk_qA2Xnk?si=6w9xb5JBK4lA9J6j" title="YouTube video player" width="560"></iframe></p>
-<h2>EX12</h2>
+<script src="/static/jsc3d.js" type="text/javascript"></script>
+<p><canvas height="600" id="cv" style="border: 1px solid;" width="800"></canvas></p>
+<div style="width: 800px; height: 70px; border: 1px solid;">Model Color:<input id="mdlClr" onchange="changeOption('ModelColor',this.value)" style="margin-right: 50px;" type="color" value="#00ff40"/> Back Color1:<input id="bckClr1" onchange="changeOption('BackgroundColor1',this.value)" style="margin-right: 50px;" type="color"/> Back Color2:<input id="bckClr2" onchange="changeOption('BackgroundColor2',this.value)" type="color"/><br/> Render Mode:<select id="render" onchange="changeOption('RenderMode',this.value)">
+<option>Flat</option>
+<option>Point</option>
+<option>Wireframe</option>
+<option>Smooth</option>
+</select>Definition:<select id="defini" onchange="changeOption('Definition',this.value)">
+<option>Standard</option>
+<option>low</option>
+<option>high</option>
+</select></div>
+<script type="text/javascript">
+var viewer3d;
+    function getOptions(){
+        var mc = document.getElementById("mdlClr").value;
+        var bc1 = document.getElementById("bckClr1").value;
+        var bc2 = document.getElementById("bckClr2").value;
+        var ren = document.getElementById("render").value;
+        var def = document.getElementById("defini").value;
+        return {ModelColor: mc,
+                BackgroundColor1: bc1,
+                BackgroundColor2: bc2,
+                RenderMode: ren,
+                Definition: def};
+    }
+    function readSTLfile(opt){
+        var canvas = document.getElementById('cv');
+        viewer3d = new JSC3D.Viewer(canvas);
+        viewer3d.setParameter('SceneUrl', opt.SceneUrl);
+        viewer3d.setParameter('InitRotationX', 0);
+        viewer3d.setParameter('InitRotationY', 0);
+        viewer3d.setParameter('InitRotationZ', 0);
+        viewer3d.setParameter('ModelColor', opt.ModelColor);
+        viewer3d.setParameter('BackgroundColor1', opt.BackgroundColor1);
+        viewer3d.setParameter('BackgroundColor2', opt.BackgroundColor2);
+        viewer3d.setParameter('RenderMode', opt.RenderMode);
+        viewer3d.setParameter('Definition', opt.Definition);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function changeOption(strOpt,strValue){
+    console.log("change " + strOpt + " to " + strValue);
+        viewer3d.setParameter(strOpt, strValue);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function openByUrl(){
+        var url = document.getElementById("url").value;
+        var opt = getOptions();
+        opt.SceneUrl = document.getElementById("url").value;
+        readSTLfile(opt);
+    }
+    function openByPass(){
+        var pass = document.getElementById("url").value;
+        var opt = getOptions();
+        var fs = document.getElementById("pass").files;
+        var f = fs[0];
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {            
+                opt.SceneUrl = e.target.result;
+                console.log(opt.SceneUrl);
+                readSTLfile(opt);
+            };
+        })(f);
+        reader.readAsDataURL(f);
+    }
+    function openByGet(){
+        var url = "https://s104.cycu.org/~41223221/練習11.stl";
+        var opt = getOptions();
+        opt.SceneUrl = url;
+        readSTLfile(opt);
+    }
+    function GetQueryString(){
+        if( 1 < window.location.search.length )
+        {
+            var query = window.location.search.substring( 1 );
+            var parameters = query.split( '&' );
+            var result = new Object();
+            for( var i = 0; i < parameters.length; i++ )
+            {
+                var element = parameters[ i ].split( '=' );
+                var paramName = decodeURIComponent( element[ 0 ] );
+                var paramValue = decodeURIComponent( element[ 1 ] );
+                result[ paramName ] = decodeURIComponent( paramValue );
+            }
+            return result;
+        }
+        return null;
+    }
+    openByGet();
+</script><h2>EX12</h2>
 <p>檔案(zip):<a href="/downloads/ex12.7z">/downloads/ex12.7z</a></p>
 <p>檔案(stl):<a href="/downloads/練習12.stl">/downloads/練習12.stl</a></p>
 <p>成品圖:</p>
 <p><img alt="" height="225" src="/images/螢幕擷取畫面 2024-12-13 152536.png" width="400"/></p>
 <p>影片:</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/LvUEmCRzHaA?si=lmnUAao6gnsic8Ra" title="YouTube video player" width="560"></iframe></p>
-<h1>完整的前置操作流程</h1>
+<script src="/static/jsc3d.js" type="text/javascript"></script>
+<p><canvas height="600" id="cv" style="border: 1px solid;" width="800"></canvas></p>
+<div style="width: 800px; height: 70px; border: 1px solid;">Model Color:<input id="mdlClr" onchange="changeOption('ModelColor',this.value)" style="margin-right: 50px;" type="color" value="#00ff40"/> Back Color1:<input id="bckClr1" onchange="changeOption('BackgroundColor1',this.value)" style="margin-right: 50px;" type="color"/> Back Color2:<input id="bckClr2" onchange="changeOption('BackgroundColor2',this.value)" type="color"/><br/> Render Mode:<select id="render" onchange="changeOption('RenderMode',this.value)">
+<option>Flat</option>
+<option>Point</option>
+<option>Wireframe</option>
+<option>Smooth</option>
+</select>Definition:<select id="defini" onchange="changeOption('Definition',this.value)">
+<option>Standard</option>
+<option>low</option>
+<option>high</option>
+</select></div>
+<script type="text/javascript">
+var viewer3d;
+    function getOptions(){
+        var mc = document.getElementById("mdlClr").value;
+        var bc1 = document.getElementById("bckClr1").value;
+        var bc2 = document.getElementById("bckClr2").value;
+        var ren = document.getElementById("render").value;
+        var def = document.getElementById("defini").value;
+        return {ModelColor: mc,
+                BackgroundColor1: bc1,
+                BackgroundColor2: bc2,
+                RenderMode: ren,
+                Definition: def};
+    }
+    function readSTLfile(opt){
+        var canvas = document.getElementById('cv');
+        viewer3d = new JSC3D.Viewer(canvas);
+        viewer3d.setParameter('SceneUrl', opt.SceneUrl);
+        viewer3d.setParameter('InitRotationX', 0);
+        viewer3d.setParameter('InitRotationY', 0);
+        viewer3d.setParameter('InitRotationZ', 0);
+        viewer3d.setParameter('ModelColor', opt.ModelColor);
+        viewer3d.setParameter('BackgroundColor1', opt.BackgroundColor1);
+        viewer3d.setParameter('BackgroundColor2', opt.BackgroundColor2);
+        viewer3d.setParameter('RenderMode', opt.RenderMode);
+        viewer3d.setParameter('Definition', opt.Definition);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function changeOption(strOpt,strValue){
+    console.log("change " + strOpt + " to " + strValue);
+        viewer3d.setParameter(strOpt, strValue);
+        viewer3d.init();
+        viewer3d.update();
+    }
+    function openByUrl(){
+        var url = document.getElementById("url").value;
+        var opt = getOptions();
+        opt.SceneUrl = document.getElementById("url").value;
+        readSTLfile(opt);
+    }
+    function openByPass(){
+        var pass = document.getElementById("url").value;
+        var opt = getOptions();
+        var fs = document.getElementById("pass").files;
+        var f = fs[0];
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {            
+                opt.SceneUrl = e.target.result;
+                console.log(opt.SceneUrl);
+                readSTLfile(opt);
+            };
+        })(f);
+        reader.readAsDataURL(f);
+    }
+    function openByGet(){
+        var url = "https://s104.cycu.org/~41223221/練習12.stl";
+        var opt = getOptions();
+        opt.SceneUrl = url;
+        readSTLfile(opt);
+    }
+    function GetQueryString(){
+        if( 1 < window.location.search.length )
+        {
+            var query = window.location.search.substring( 1 );
+            var parameters = query.split( '&' );
+            var result = new Object();
+            for( var i = 0; i < parameters.length; i++ )
+            {
+                var element = parameters[ i ].split( '=' );
+                var paramName = decodeURIComponent( element[ 0 ] );
+                var paramValue = decodeURIComponent( element[ 1 ] );
+                result[ paramName ] = decodeURIComponent( paramValue );
+            }
+            return result;
+        }
+        return null;
+    }
+    openByGet();
+</script><h1>完整的前置操作流程</h1>
 <p><img alt="" height="465" src="/images/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202024-09-26%20175310.png" width="400"/></p>
 <p>第一步驟先新增三個終端機</p>
 <p><img alt="" height="206" src="/images/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202024-09-26%20175432.png" width="400"/></p>
